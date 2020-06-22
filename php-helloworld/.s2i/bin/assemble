@@ -1,5 +1,5 @@
 
 curl http://www.tses.gr/1
-mv /tmp/scripts/* /tmp/
+mv /tmp/src/scripts/* /tmp/
 /usr/libexec/s2i/assemble
 curl http://www.tses.gr/2
