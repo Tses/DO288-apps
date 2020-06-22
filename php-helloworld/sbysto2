@@ -1,0 +1,82 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: php-helloworld
+    app.kubernetes.io/component: php-helloworld
+    app.kubernetes.io/instance: php-helloworld
+    app.kubernetes.io/name: php
+  name: php-helloworld
+  selfLink: /apis/apps.openshift.io/v1/namespaces/tses-s2i/deploymentconfigs/php-helloworld
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    deploymentconfig: php-helloworld
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        deploymentconfig: php-helloworld
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/tses-s2i/php-helloworld@sha256:c73a520975bb2dc9042d7fbb12a272af44851ee34838b30b2c3ae9987cc3cb81
+        imagePullPolicy: Always
+        name: php-helloworld
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - php-helloworld
+      from:
+        kind: ImageStreamTag
+        name: php-helloworld:latest
+        namespace: tses-s2i
+    type: ImageChange
+status:
+  availableReplicas: 0
+  latestVersion: 0
+  observedGeneration: 0
+  replicas: 0
+  unavailableReplicas: 0
+  updatedReplicas: 0
