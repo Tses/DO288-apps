@@ -1,1 +1,1 @@
-curl http://www.tses.gr/pre
+echo 1 > /tmp/pre-run
