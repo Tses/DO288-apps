@@ -36,7 +36,7 @@ spec:
         deploymentconfig: php-helloworld
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/tses-s2i/php-helloworld@sha256:b8ffe5dc9b0ee20c78529b7e55d2e3a7ae013098d3ed1a4b4815a2032fc4384c
+      - image: image-registry.openshift-image-registry.svc:5000/tses-s2i/php-helloworld@sha256:034b37f6ff8bd741fd64f88e32b781b14a4077f20080841eb45f4cce0cac3b27
         imagePullPolicy: Always
         name: php-helloworld
         ports:
@@ -65,6 +65,7 @@ spec:
   triggers:
   - type: ConfigChange
   - imageChangeParams:
+      automatic: true
       containerNames:
       - php-helloworld
       from:

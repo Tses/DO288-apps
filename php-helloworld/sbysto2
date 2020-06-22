@@ -13,6 +13,7 @@ metadata:
   name: php-helloworld
   selfLink: /apis/apps.openshift.io/v1/namespaces/tses-s2i/deploymentconfigs/php-helloworld
 spec:
+  paused: true
   replicas: 1
   revisionHistoryLimit: 10
   selector:
@@ -36,7 +37,7 @@ spec:
         deploymentconfig: php-helloworld
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/tses-s2i/php-helloworld@sha256:c73a520975bb2dc9042d7fbb12a272af44851ee34838b30b2c3ae9987cc3cb81
+      - image: image-registry.openshift-image-registry.svc:5000/tses-s2i/php-helloworld@sha256:034b37f6ff8bd741fd64f88e32b781b14a4077f20080841eb45f4cce0cac3b27
         imagePullPolicy: Always
         name: php-helloworld
         ports:
